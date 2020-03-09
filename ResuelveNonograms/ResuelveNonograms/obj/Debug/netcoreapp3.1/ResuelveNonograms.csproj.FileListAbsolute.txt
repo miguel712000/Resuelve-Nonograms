@@ -1,0 +1,11 @@
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.exe
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.deps.json
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.runtimeconfig.json
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.runtimeconfig.dev.json
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.dll
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\bin\Debug\netcoreapp3.1\ResuelveNonograms.pdb
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.csprojAssemblyReference.cache
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.AssemblyInfoInputs.cache
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.AssemblyInfo.cs
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.dll
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.pdb
