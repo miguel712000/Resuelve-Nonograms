@@ -7,11 +7,12 @@ namespace ResuelveNonograms
     class Nonogram
     {
         private int filas, columnas;
-        private Dictionary<int,List<int>> pistasFilas, pistasColumnas;
+        private int[,] pistasFilas;
+        private int[] pistasColumnas;
 
 
 
-        public Nonogram(int filas, int columnas, Dictionary<int, List<int>> pistasFilas, Dictionary<int, List<int>> pistasColumnas)
+        public Nonogram(int filas, int columnas, int[,] pistasFilas, int[] pistasColumnas)
         {
             this.filas = filas;
             this.columnas = columnas;
@@ -30,12 +31,12 @@ namespace ResuelveNonograms
             this.columnas = columnas;
         }
 
-        public void establecePistasFilas(Dictionary<int, List<int>> pistasFilas)
+        public void establecePistasFilas(int[,] pistasFilas)
         {
             this.pistasFilas = pistasFilas;
         }
 
-        public void establecePistasColumnas(Dictionary<int, List<int>> pistasColumnas)
+        public void establecePistasColumnas(int[] pistasColumnas)
         {
             this.pistasColumnas = pistasColumnas;
         }
@@ -43,30 +44,42 @@ namespace ResuelveNonograms
         public String dameNonogram()
         {
             String texto;
+            int rowLengthPistasFilas = pistasFilas.GetLength(0);
+            int colLengthPistasFilas = pistasFilas.GetLength(1);
+
+            int rowLengthPistasColumnas = pistasColumnas.GetLength(0);
+            //int colLengthPistasColumnas = pistasColumnas.GetLength(1);
 
             texto = filas + ", " + columnas + "\nFilas\n";
 
-            for(int i = 0; i < pistasFilas.Count - 1; i++)
+            texto += "{";
+            for (int i = 0; i < rowLengthPistasFilas; i++)
             {
-                foreach(int pista in pistasFilas[i])
+                texto += "{";
+                for (int j = 0; j < colLengthPistasFilas; j++)
                 {
-                    texto += pista + ", ";
+                    texto += pistasFilas[i,j] + ", ";
                 }
+                texto += "}";
             }
+            texto += "}";
 
             texto += "\nColumnas\n";
 
-            for (int i = 0; i < pistasColumnas.Count - 1; i++)
+            texto += "{";
+            for (int i = 0; i < rowLengthPistasColumnas; i++)
             {
-                foreach (var pista in pistasColumnas[i])
-                {
-                    Console.WriteLine(pista);
-                    texto += pista + ", ";
-                }
+                //texto += "{";
+                //for (int j = 0; j < colLengthPistasColumnas; j++)
+                //{
+                    texto += pistasColumnas[i] + ", ";
+                //}
+                //texto += "}";
             }
+            texto += "}";
 
             return texto;
         }
-        
+
     }
 }
