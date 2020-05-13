@@ -22,10 +22,6 @@ namespace ResuelveNonograms
             this.pistasColumnas = pistasColumnas;
             
 
-
-            //colLengthPistasFilas = pistasFilas.GetLength(0) -1;
-            //colLengthPistasColumnas = pistasColumnas.GetLength(0) -1;
-
         }
 
         /*public void estableceFilas(int filas)
@@ -52,12 +48,7 @@ namespace ResuelveNonograms
         public String damePistasNonogram()
         {
             String texto;
-            //int rowLengthPistasFilas = pistasFilas.GetLength(0);
-            //int colLengthPistasFilas = pistasFilas.GetLength(1);
-
-            //int rowLengthPistasColumnas = pistasColumnas.GetLength(0);
-            //int colLengthPistasColumnas = pistasColumnas.GetLength(1);
-
+            
             texto = filas + ", " + columnas + "\nFilas\n";
 
             texto += "{";
@@ -89,28 +80,39 @@ namespace ResuelveNonograms
             return texto;
         }
 
-        /*public int[,] resuelveNonogram()
+        public int[][] resuelveNonogram()
         {
             int[][] solicionNonogram = new int[filas][];
-            solicionNonogram[0] = new int[columnas];
-            
-
             for (int i = 0; i < filas; i++)
             {
-                for (int j = 0; j < colLengthPistasFilas; j++)
+                solicionNonogram[i] = new int[columnas];
+                for (int j = 0; j< columnas; j++)
                 {
-                    if (pistasFilas[i,j] != 0)
-                    {
-                        if (pistasFilas[i,j] > (columnas/2))
-                        {
-                            solucionNonogram[i,]
-                        }
-                    }
-
+                    solicionNonogram[i][j] = -1;
                 }
+            }
 
+            //TODO resolvedor
+
+
+   
             return solucionNonogram;
         }
-        */
+        
+        public void resolvedor(int [][] solucionAct, int columnaSolucion, int filaSolucion)
+        {
+            if (columnaSolucion==columnas && filaSolucion == filas)
+            {
+                Console.WriteLine(solucionAct);
+            }
+            else
+            {
+                solucionAct[columnaSolucion][filaSolucion] = 1;
+                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
+                solucionAct[columnaSolucion][filaSolucion] = 0;
+                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
+            }
+        }
+
     }
 }

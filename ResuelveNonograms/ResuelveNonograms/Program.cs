@@ -8,31 +8,27 @@ namespace ResuelveNonograms
         static void Main(string[] args)
         {
 
-            int[][] pistasFilas = new int[2][];
-            pistasFilas[0] = new int[1] {1};
-            pistasFilas[1] = new int[2] {2,3};
+            int filas, columnas;
+
+            filas = 2;
+            columnas = 3;
+
+            int[][] pistasFilas = new int[filas][];
+            pistasFilas[0] = new int[1] {2};
+            pistasFilas[1] = new int[2] {1,1};
             
 
-            int[][] pistasColumnas = new int[3][];
-            pistasColumnas[0] = new int[1] {4};
-            pistasColumnas[1] = new int[2] {5,6};
-            pistasColumnas[2] = new int[1] {7};
+            int[][] pistasColumnas = new int[columnas][];
+            pistasColumnas[0] = new int[1] {2};
+            pistasColumnas[1] = new int[1] {1};
+            pistasColumnas[2] = new int[1] {1};
 
-            /*
-            Console.WriteLine(pistasFilas[0][pistasFilas.GetLength(0)]);
-            Console.WriteLine(pistasFilas[1][0]);
-            Console.WriteLine(pistasFilas[1][1]);
-            Console.WriteLine(pistasColumnas[0][0]);
-            Console.WriteLine(pistasColumnas[1][0]);
-            Console.WriteLine(pistasColumnas[2][0]);
-            */
+           Console.WriteLine(pistasColumnas[0][0]);
 
-            Nonogram puzle = new Nonogram(2,3,pistasFilas,pistasColumnas);
+           Nonogram puzle = new Nonogram(filas,columnas,pistasFilas,pistasColumnas);
 
 
-            //Console.WriteLine(pistasFilas[1].Length);
-
-            Console.WriteLine(puzle.damePistasNonogram());
+           Console.WriteLine(puzle.damePistasNonogram());
 
 
 
