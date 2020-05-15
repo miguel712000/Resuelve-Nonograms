@@ -91,28 +91,104 @@ namespace ResuelveNonograms
                     solicionNonogram[i][j] = -1;
                 }
             }
-
-            //TODO resolvedor
-
-
    
-            return solucionNonogram;
+            return resolvedor(solucionNonogram,filas,columnas);
         }
         
-        public void resolvedor(int [][] solucionAct, int columnaSolucion, int filaSolucion)
+        public int[][] resolvedor(int [][] solucionAct, int filaActual, int columnaActual)
         {
-            if (columnaSolucion==columnas && filaSolucion == filas)
+            if (chequeadorFila(solucionAct, filaActual, columnaActual) && chequeadorColumna(solucionAct, filaActual, columnaActual) )
             {
-                Console.WriteLine(solucionAct);
+                return solucionAct;
             }
             else
             {
-                solucionAct[columnaSolucion][filaSolucion] = 1;
-                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
-                solucionAct[columnaSolucion][filaSolucion] = 0;
-                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
+                if(filaActual == filas && columnaActual == columnas)  //TODO ver si esto esta bien acomodado, estoy cansadisimo y son las 4:40am, no he hecho pruebas
+                {
+                    return solucionAct;
+                }
+                if (filaActual <= filas)
+                {
+                    filaActual++;
+                }
+                else
+                {
+                    columnaActual++;
+                    filaActual = 0;
+                }
+                solucionAct[filaActual][columnaActual] = 1;
+                resolvedor(solucionAct, filaActual, columnaActual + 1);
+                solucionAct[filaActual][columnaActual] = 0;
+                resolvedor(solucionAct, filaActual, columnaActual + 1);
+                return solucionAct;
+
             }
         }
+
+        public bool chequeadorFila(int[][]solucionActual,int filaActual, int columnaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = false;
+
+            foreach(int pista in pistasFilas[filaActual])
+            {
+                int suma = 0; 
+                int miniGrupo = 0;
+
+                for (int i = 0; i < columnas; i++)
+                {
+                    if (solucionActual[filaActual][i] > 0 && nPistaActual == miniGrupo)
+                    {
+                        suma++;
+                    }
+                    else if (solucionActual[filaActual][i] == 0 && solucionActual[filaActual][i - 1] == 1)
+                    {
+                        miniGrupo++;
+                    }
+                }
+
+                if (pista >= suma)
+                {
+                    conclusion = true;
+                }
+
+            }
+
+            return conclusion;
+        }
+
+        public bool chequeadorColumna(int[][] solucionActual, int filaActual, int columnaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = false;
+
+            foreach (int pista in pistasColumnas[columnaActual])
+            {
+                int suma = 0;
+                int miniGrupo = 0;
+
+                for (int i = 0; i < filas; i++)
+                {
+                    if (solucionActual[columnaActual][i] > 0 && nPistaActual == miniGrupo)
+                    {
+                        suma++;
+                    }
+                    else if (solucionActual[columnaActual][i] == 0 && solucionActual[columnaActual][i - 1] == 1)
+                    {
+                        miniGrupo++;
+                    }
+                }
+                if (pista >= suma)
+                {
+                    conclusion = true;
+                }
+
+            }
+
+            return conclusion;
+        }
+
+
 
     }
 }
