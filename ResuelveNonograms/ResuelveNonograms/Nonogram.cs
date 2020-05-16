@@ -10,8 +10,6 @@ namespace ResuelveNonograms
         private int[][] pistasFilas;
         private int[][] pistasColumnas;
         private int[][] solucionNonogram;
-        private int colLengthPistasFilas;
-        private int colLengthPistasColumnas;
 
 
         public Nonogram(int filas, int columnas, int[][] pistasFilas, int[][] pistasColumnas)
@@ -20,8 +18,8 @@ namespace ResuelveNonograms
             this.columnas = columnas;
             this.pistasFilas = pistasFilas;
             this.pistasColumnas = pistasColumnas;
-            
 
+            solucionNonogram = resuelveNonogram();
         }
 
         /*public void estableceFilas(int filas)
@@ -92,18 +90,18 @@ namespace ResuelveNonograms
                 }
             }
    
-            return resolvedor(solucionNonogram,filas,columnas);
+            return resolvedor(solucionNonogram,0,0);
         }
         
         public int[][] resolvedor(int [][] solucionAct, int filaActual, int columnaActual)
         {
-            if (chequeadorFila(solucionAct, filaActual, columnaActual) && chequeadorColumna(solucionAct, filaActual, columnaActual) )
+            if (chequeadorFila(solucionAct, filaActual) == false && chequeadorColumna(solucionAct, columnaActual) == false)
             {
                 return solucionAct;
             }
             else
             {
-                if(filaActual == filas && columnaActual == columnas)  //TODO ver si esto esta bien acomodado, estoy cansadisimo y son las 4:40am, no he hecho pruebas
+                if(filaActual == filas && columnaActual == columnas) 
                 {
                     return solucionAct;
                 }
@@ -117,15 +115,15 @@ namespace ResuelveNonograms
                     filaActual = 0;
                 }
                 solucionAct[filaActual][columnaActual] = 1;
-                resolvedor(solucionAct, filaActual, columnaActual + 1);
+                resolvedor(solucionAct, filaActual, columnaActual);
                 solucionAct[filaActual][columnaActual] = 0;
-                resolvedor(solucionAct, filaActual, columnaActual + 1);
+                resolvedor(solucionAct, filaActual, columnaActual);
                 return solucionAct;
 
             }
         }
 
-        public bool chequeadorFila(int[][]solucionActual,int filaActual, int columnaActual)
+        public bool chequeadorFila(int[][]solucionActual,int filaActual)
         {
             int nPistaActual = 0;
             bool conclusion = false;
@@ -151,13 +149,18 @@ namespace ResuelveNonograms
                 {
                     conclusion = true;
                 }
+                else
+                {
+                    conclusion = false;
+                }
 
+                nPistaActual++;
             }
 
             return conclusion;
         }
 
-        public bool chequeadorColumna(int[][] solucionActual, int filaActual, int columnaActual)
+        public bool chequeadorColumna(int[][] solucionActual, int columnaActual)
         {
             int nPistaActual = 0;
             bool conclusion = false;
@@ -182,13 +185,32 @@ namespace ResuelveNonograms
                 {
                     conclusion = true;
                 }
+                else
+                {
+                    conclusion = false;
+                }
+
+                nPistaActual++;
 
             }
 
             return conclusion;
         }
 
+        public void imprimeNonogram()
+        {
+            string texto = "";
 
+            foreach(int[] filas in solucionNonogram)
+            {
+                foreach(int columna in filas)
+                {
+                    texto += columna + ",";
+                }
+                texto += "\n";
+            }
+            Console.WriteLine(texto);
+        }
 
     }
 }
