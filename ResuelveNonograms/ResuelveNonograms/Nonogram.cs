@@ -10,8 +10,6 @@ namespace ResuelveNonograms
         private int[][] pistasFilas;
         private int[][] pistasColumnas;
         private int[][] solucionNonogram;
-        private int colLengthPistasFilas;
-        private int colLengthPistasColumnas;
 
 
         public Nonogram(int filas, int columnas, int[][] pistasFilas, int[][] pistasColumnas)
@@ -20,8 +18,8 @@ namespace ResuelveNonograms
             this.columnas = columnas;
             this.pistasFilas = pistasFilas;
             this.pistasColumnas = pistasColumnas;
-            
 
+            solucionNonogram = resuelveNonogram();
         }
 
         /*public void estableceFilas(int filas)
@@ -91,27 +89,127 @@ namespace ResuelveNonograms
                     solicionNonogram[i][j] = -1;
                 }
             }
-
-            //TODO resolvedor
-
-
    
-            return solucionNonogram;
+            return resolvedor(solucionNonogram,0,0);
         }
         
-        public void resolvedor(int [][] solucionAct, int columnaSolucion, int filaSolucion)
+        public int[][] resolvedor(int [][] solucionAct, int filaActual, int columnaActual)
         {
-            if (columnaSolucion==columnas && filaSolucion == filas)
+            if (chequeadorFila(solucionAct, filaActual) == false && chequeadorColumna(solucionAct, columnaActual) == false)
             {
-                Console.WriteLine(solucionAct);
+                return solucionAct;
             }
             else
             {
-                solucionAct[columnaSolucion][filaSolucion] = 1;
-                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
-                solucionAct[columnaSolucion][filaSolucion] = 0;
-                resolvedor(solucionAct, columnaSolucion, filaSolucion + 1);
+                if(filaActual == filas && columnaActual == columnas) 
+                {
+                    return solucionAct;
+                }
+                if (filaActual <= filas)
+                {
+                    filaActual++;
+                }
+                else
+                {
+                    columnaActual++;
+                    filaActual = 0;
+                }
+                solucionAct[filaActual][columnaActual] = 1;
+                resolvedor(solucionAct, filaActual, columnaActual);
+                solucionAct[filaActual][columnaActual] = 0;
+                resolvedor(solucionAct, filaActual, columnaActual);
+                return solucionAct;
+
             }
+        }
+
+        public bool chequeadorFila(int[][]solucionActual,int filaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = false;
+
+            foreach(int pista in pistasFilas[filaActual])
+            {
+                int suma = 0; 
+                int miniGrupo = 0;
+
+                for (int i = 0; i < columnas; i++)
+                {
+                    if (solucionActual[filaActual][i] > 0 && nPistaActual == miniGrupo)
+                    {
+                        suma++;
+                    }
+                    else if (solucionActual[filaActual][i] == 0 && solucionActual[filaActual][i - 1] == 1)
+                    {
+                        miniGrupo++;
+                    }
+                }
+
+                if (pista >= suma)
+                {
+                    conclusion = true;
+                }
+                else
+                {
+                    conclusion = false;
+                }
+
+                nPistaActual++;
+            }
+
+            return conclusion;
+        }
+
+        public bool chequeadorColumna(int[][] solucionActual, int columnaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = false;
+
+            foreach (int pista in pistasColumnas[columnaActual])
+            {
+                int suma = 0;
+                int miniGrupo = 0;
+
+                for (int i = 0; i < filas; i++)
+                {
+                    if (solucionActual[columnaActual][i] > 0 && nPistaActual == miniGrupo)
+                    {
+                        suma++;
+                    }
+                    else if (solucionActual[columnaActual][i] == 0 && solucionActual[columnaActual][i - 1] == 1)
+                    {
+                        miniGrupo++;
+                    }
+                }
+                if (pista >= suma)
+                {
+                    conclusion = true;
+                }
+                else
+                {
+                    conclusion = false;
+                }
+
+                nPistaActual++;
+
+            }
+
+            return conclusion;
+        }
+
+        public void imprimeNonogram()
+        {
+            string texto = "";
+
+            foreach(int[] filas in solucionNonogram)
+            {
+                foreach(int columna in filas)
+                {
+                    texto += columna + ",";
+                }
+                texto += "\n";
+            }
+            Console.WriteLine(texto);
         }
 
     }

@@ -9,3 +9,5 @@ C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj
 C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.AssemblyInfo.cs
 C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.dll
 C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.pdb
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\Resuelve-Nonograms\ResuelveNonograms\ResuelveNonograms\obj\Debug\netcoreapp3.1\ResuelveNonograms.genruntimeconfig.cache

@@ -27,8 +27,11 @@ namespace ResuelveNonograms
 
            Nonogram puzle = new Nonogram(filas,columnas,pistasFilas,pistasColumnas);
 
+            //Console.WriteLine(puzle.damePistasNonogram());
 
-           Console.WriteLine(puzle.damePistasNonogram());
+            int[][] solucion = puzle.resuelveNonogram();
+
+            puzle.imprimeNonogram();
 
 
 
