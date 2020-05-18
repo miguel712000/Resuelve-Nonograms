@@ -23,13 +23,13 @@ namespace ResuelveNonograms
             pistasColumnas[1] = new int[1] {1};
             pistasColumnas[2] = new int[1] {1};
 
-           Console.WriteLine(pistasColumnas[0][0]);
+            //Console.WriteLine(pistasColumnas[0][0]);
 
-           Nonogram puzle = new Nonogram(filas,columnas,pistasFilas,pistasColumnas);
+            Nonogram puzle = new Nonogram(filas,columnas,pistasFilas,pistasColumnas);
 
             //Console.WriteLine(puzle.damePistasNonogram());
 
-            int[][] solucion = puzle.resuelveNonogram();
+            puzle.resuelveNonogram();
 
             puzle.imprimeNonogram();
 
