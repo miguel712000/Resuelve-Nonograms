@@ -14,12 +14,12 @@ namespace ResuelveNonograms
             columnas = 3;
 
             int[][] pistasFilas = new int[filas][];
-            pistasFilas[0] = new int[1] {2};
-            pistasFilas[1] = new int[2] {1,1};
+            pistasFilas[0] = new int[1] {1};
+            pistasFilas[1] = new int[1] {2};
             
 
             int[][] pistasColumnas = new int[columnas][];
-            pistasColumnas[0] = new int[1] {2};
+            pistasColumnas[0] = new int[1] {0};
             pistasColumnas[1] = new int[1] {1};
             pistasColumnas[2] = new int[1] {1};
 
@@ -33,7 +33,7 @@ namespace ResuelveNonograms
 
             puzle.imprimeNonogram();
 
-
+            
 
         }
     }
