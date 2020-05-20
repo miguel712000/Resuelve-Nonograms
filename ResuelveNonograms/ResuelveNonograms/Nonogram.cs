@@ -120,8 +120,10 @@ namespace ResuelveNonograms
                 {
                     if (chequeadorFinal(solucionAct))
                     {
-                        Console.WriteLine("Filas y Columnas completas");
+                        Console.WriteLine("Tras Filas y Columnas completas");
                         imprimeNonogram();
+                        solucionNonogram = solucionAct;
+                        return solucionAct;
                     }
                     else
                         return solucionAct;
@@ -281,6 +283,7 @@ namespace ResuelveNonograms
                         return false;
                     }
 
+                    Console.WriteLine("Check Final: " + conclusion);
                     nPistaActual++;
                 }
             }
