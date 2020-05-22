@@ -65,6 +65,7 @@
     <Compile Include="Assets\Codigos\EscogerArchivo.cs" />
     <Compile Include="Assets\Codigos\OpenFileDialog.cs" />
     <Compile Include="Assets\Codigos\cambioescena.cs" />
+    <Compile Include="Assets\GridManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Fabian Martinez/OneDrive/Escritorio/Resuelve-Nonograms/New Unity Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
