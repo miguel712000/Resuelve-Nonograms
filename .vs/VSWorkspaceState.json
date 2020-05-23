@@ -3,9 +3,8 @@
     "",
     "\\ResuelveNonograms",
     "\\ResuelveNonograms\\ResuelveNonograms",
-    "\\ResuelveNonograms\\ResuelveNonograms\\bin\\Release\\netcoreapp3.1",
     "\\ResuelveNonograms\\ResuelveNonograms\\obj"
   ],
-  "SelectedNode": "\\ResuelveNonograms\\ResuelveNonograms\\Program.cs",
+  "SelectedNode": "\\ResuelveNonograms\\ResuelveNonograms\\Nonogram.cs",
   "PreviewInSolutionExplorer": false
 }
