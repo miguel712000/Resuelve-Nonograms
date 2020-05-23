@@ -64,7 +64,9 @@
   <ItemGroup>
     <Compile Include="Assets\Codigo\CambioEscena.cs" />
     <Compile Include="Assets\Codigo\EscogerArchivo.cs" />
+    <Compile Include="Assets\Codigo\GridFinal.cs" />
     <Compile Include="Assets\Codigo\GridManager.cs" />
+    <Compile Include="Assets\Codigo\Nonogram.cs" />
     <Compile Include="Assets\Codigo\Singleton.cs" />
     <Compile Include="Assets\Codigo\UltimaEscena.cs" />
     <Compile Include="Assets\DividirDatos.cs" />
