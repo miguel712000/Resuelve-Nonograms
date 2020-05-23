@@ -98,11 +98,14 @@ namespace ResuelveNonograms
         
         private int[][] resolvedor(int [][] solucionAct, int filaActual, int columnaActual)
         {
-            Console.WriteLine("Tras resolvedor");
+            Console.WriteLine("\nTras empezar funcion");
             imprimeNonogram();
 
-            if (chequeadorFila(solucionAct,filaActual) == false || chequeadorColumna(solucionAct, columnaActual) == false)
+            if (!chequeadorFila(solucionAct,filaActual) || !chequeadorColumna(solucionAct, columnaActual))
             {
+                Console.WriteLine("Tras fallar checks");
+                solucionAct[filaActual][columnaActual] = -1;
+               
                 return solucionAct;
             }
             
@@ -113,20 +116,24 @@ namespace ResuelveNonograms
 
             else
             {
-                Console.WriteLine("Tras verificar");
-                imprimeNonogram(); //Ver como se está armando la solucion
-
+                Console.WriteLine("Tras pasar checks");
+                //imprimeNonogram(); //Ver como se está armando la solucion
+                solucionNonogram = solucionAct;
                 if (filaActual == filas-1 && columnaActual == columnas-1)
                 {
+                    Console.WriteLine("Filas y columnas completas");
                     if (chequeadorFinal(solucionAct))
                     {
-                        Console.WriteLine("Tras Filas y Columnas completas");
+                        Console.WriteLine("Solucion correcta");
                         imprimeNonogram();
-                        solucionNonogram = solucionAct;
-                        return solucionAct;
+                        //solucionNonogram = solucionAct;
+                        return solucionNonogram;
                     }
                     else
-                        return solucionAct;
+                    {
+                        Console.WriteLine("Solucion incorrecta, reintentar");
+                        return solucionNonogram;
+                    }   
                 }
 
                 if (columnaActual != columnas && difCero)
@@ -143,33 +150,50 @@ namespace ResuelveNonograms
                 else
                     difCero = true;
 
-                Console.WriteLine("A evaluar Fila: " + filaActual + " Columna: " + (columnaActual));
+                //Console.WriteLine("A evaluar Fila: " + filaActual + " Columna: " + (columnaActual));
 
                 solucionAct[filaActual][columnaActual] = 1;
-                resolvedor(solucionAct, filaActual, columnaActual);
-                if (chequeadorFinal(solucionAct))
+                Console.WriteLine("Probar con 1 en ["+filaActual+"]["+columnaActual+"]");
+                if (resolvedor(solucionAct, filaActual, columnaActual)[filaActual][columnaActual] == 1)
                 {
-                    solucionNonogram = solucionAct;
-                    Console.WriteLine("Final");
+                    //Console.WriteLine("1 correcto");
                     imprimeNonogram();
-                    return solucionAct;
+                    //Console.WriteLine("chequeadorFinal" + chequeadorFinal(solucionAct));
+                    if (chequeadorFinal(solucionAct))
+                    {
+                        //solucionNonogram = solucionAct;
+                        Console.WriteLine("Final");
+                        imprimeNonogram();
+                        Console.WriteLine();
+                        return solucionNonogram;
+                    }
                 }
-                solucionAct[filaActual][columnaActual] = 0;
-                resolvedor(solucionAct, filaActual, columnaActual);
-                if (chequeadorFinal(solucionAct))
+                else
                 {
-                    solucionNonogram = solucionAct;
-                    Console.WriteLine("Final");
                     imprimeNonogram();
-                    return solucionAct;
+                    solucionAct[filaActual][columnaActual] = 0;
+                    Console.WriteLine("Probar con 0 en [" + filaActual + "][" + columnaActual + "]");
+                    if (resolvedor(solucionAct, filaActual, columnaActual)[filaActual][columnaActual]==0)
+                    {
+                        //Console.WriteLine("0 correcto");
+                        imprimeNonogram();
+                        //Console.WriteLine("chequeadorFinal" + chequeadorFinal(solucionAct));
+                        if (chequeadorFinal(solucionAct))
+                        {
+                            //solucionNonogram = solucionAct;
+                            Console.WriteLine("Final");
+                            imprimeNonogram();
+                            Console.WriteLine();
+                            return solucionNonogram;
+                        }
+                    }
                 }
-
-
                 return solucionAct;
+                
             }
         }
-
-        private bool chequeadorFila(int[][]solucionActual,int filaActual)
+        /*
+        private bool chequeadorFila(int[][] solucionActual,int filaActual)
         {
             int nPistaActual = 0;
             bool conclusion = false;
@@ -181,17 +205,25 @@ namespace ResuelveNonograms
 
                 for (int i = 0; i < columnas; i++)
                 {
+                    //Console.WriteLine("nPistaActual: "+nPistaActual+". conclusion: "+conclusion+". Pista: "+pista+". suma: "+suma+". miniGrupo: "+miniGrupo+". i: "+i+". solucionActual[filaActual][i]: "+ solucionActual[filaActual][i]+ ". pistasFilas[filaActual].Count(): " + pistasFilas[filaActual].Count());
                     if (solucionActual[filaActual][i] == 1 && nPistaActual == miniGrupo)
                     {
                         suma++;
+                        Console.WriteLine("suma: " + suma);
                     }
-                    else if (solucionActual[filaActual][i] == 0 && i>1)
+                    try
                     {
-                        if (solucionActual[filaActual][i - 1] == 1)
+                        if (solucionActual[filaActual][i] == 1 && solucionActual[filaActual][i + 1] == 0)
+                        {
                             miniGrupo++;
+                        }
                     }
-                }
+                    catch (System.IndexOutOfRangeException)
+                    {
 
+                    }
+                    
+                }
                 if (pista >= suma)
                 {
                     conclusion = true;
@@ -200,7 +232,10 @@ namespace ResuelveNonograms
                 else
                 {
                     conclusion = false;
+                    Console.WriteLine("Fila check: " + conclusion);
+                    return conclusion;
                 }
+
 
                 nPistaActual++;
             }
@@ -208,7 +243,73 @@ namespace ResuelveNonograms
             return conclusion;
         }
 
-        private bool chequeadorColumna(int[][] solucionActual, int columnaActual)
+        */
+        private bool chequeadorFila(int[][] solucionActual,int filaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = true;
+
+            //Console.WriteLine("pistasFilas Count: " + (pistasFilas[filaActual].Count()));
+
+            foreach (int pista in pistasFilas[filaActual])
+            {
+                int suma = 0; 
+                int miniGrupo = 0;
+
+                for (int i = 0; i < columnas; i++)
+                {
+
+                    //Console.WriteLine("miniGrupo: " + miniGrupo + ". pistasFilas[filaActual].Count(): " + (pistasFilas[filaActual].Count()-1));
+                    if (miniGrupo > (pistasFilas[filaActual].Count()-1))
+                    {
+                        conclusion = false;
+                        Console.WriteLine("Fila check: " + conclusion);
+                        return conclusion;
+                    }
+
+                    
+
+                    if (solucionActual[filaActual][i] == 1)
+                    {
+                        //Console.WriteLine("miniGrupo: " + miniGrupo+". nPistaActual: "+nPistaActual);
+                        if (miniGrupo == nPistaActual)
+                        {
+                            suma++;
+                            //Console.WriteLine("suma: " + suma);
+                            if (suma > pista)
+                            {
+                                conclusion = false;
+                                Console.WriteLine("Fila check: " + conclusion);
+                                return conclusion;
+                            }
+                        }
+                    }
+                    try
+                    {
+                        //Console.WriteLine("i:" + i + ". solucionActual i: " + solucionActual[filaActual][i] + ". solucion Actual i+1: " + solucionActual[filaActual][i+1]);
+                        if (solucionActual[filaActual][i] == 0 && solucionActual[filaActual][i + 1] == 1 && suma > 0)
+                        {
+                            miniGrupo++;
+                            //Console.WriteLine("miniGrupo: " + miniGrupo);
+                        }
+                    }
+                    catch (System.IndexOutOfRangeException)
+                    {
+                        //Console.WriteLine("miniGrupo catch: " + miniGrupo);
+                    }
+
+                }
+
+                nPistaActual++;
+                //Console.WriteLine("nPistaAct: " + nPistaActual);
+            }
+            Console.WriteLine("Fila check: "+conclusion);
+            return conclusion;
+
+        }
+
+        /*
+        private bool chequeadorColumna(int[][] solucionActual,int columnaActual)
         {
             int nPistaActual = 0;
             bool conclusion = false;
@@ -220,7 +321,7 @@ namespace ResuelveNonograms
 
                 for (int i = 0; i < filas; i++)
                 {
-                    if (solucionActual[i][columnaActual] > 0 && nPistaActual == miniGrupo)
+                    if (solucionActual[i][columnaActual] == 1 && nPistaActual == miniGrupo)
                     {
                         suma++;
                     }
@@ -237,6 +338,8 @@ namespace ResuelveNonograms
                 else
                 {
                     conclusion = false;
+                    Console.WriteLine("Columna check: " + conclusion);
+                    return conclusion;
                 }
 
                 nPistaActual++;
@@ -246,10 +349,76 @@ namespace ResuelveNonograms
             Console.WriteLine("Columna check: "+conclusion);
             return conclusion;
         }
+        */
+
+
+        private bool chequeadorColumna(int[][] solucionActual, int columnaActual)
+        {
+            int nPistaActual = 0;
+            bool conclusion = true;
+
+            //Console.WriteLine("pistasFilas Count: " + (pistasFilas[filaActual].Count()));
+
+            foreach (int pista in pistasColumnas[columnaActual])
+            {
+                int suma = 0;
+                int miniGrupo = 0;
+
+                for (int i = 0; i < filas; i++)
+                {
+
+                    //Console.WriteLine("miniGrupo: " + miniGrupo + ". pistasFilas[filaActual].Count(): " + (pistasFilas[filaActual].Count()-1));
+                    if (miniGrupo > (pistasColumnas[columnaActual].Count()-1))
+                    {
+                        conclusion = false;
+                        Console.WriteLine("Columna check: " + conclusion);
+                        return conclusion;
+                    }
+
+
+
+                    if (solucionActual[i][columnaActual] == 1)
+                    {
+                        //Console.WriteLine("miniGrupo: " + miniGrupo+". nPistaActual: "+nPistaActual);
+                        if (miniGrupo == nPistaActual)
+                        {
+                            suma++;
+                            //Console.WriteLine("suma: " + suma);
+                            if (suma > pista)
+                            {
+                                conclusion = false;
+                                Console.WriteLine("Columna check: " + conclusion);
+                                return conclusion;
+                            }
+                        }
+                    }
+                    try
+                    {
+                        //Console.WriteLine("i:" + i + ". solucionActual i: " + solucionActual[filaActual][i] + ". solucion Actual i+1: " + solucionActual[filaActual][i+1]);
+                        if (solucionActual[i][columnaActual] == 0 && solucionActual[i + 1][columnaActual] == 1 && suma > 0)
+                        {
+                            miniGrupo++;
+                            //Console.WriteLine("miniGrupo: " + miniGrupo);
+                        }
+                    }
+                    catch (System.IndexOutOfRangeException)
+                    {
+                        //Console.WriteLine("miniGrupo catch: " + miniGrupo);
+                    }
+
+                }
+
+                nPistaActual++;
+                //Console.WriteLine("nPistaAct: " + nPistaActual);
+            }
+            Console.WriteLine("Columna check: " + conclusion);
+            return conclusion;
+
+        }
 
         private bool chequeadorFinal(int[][] solucionActual)
         {
-            bool conclusion = false;
+            bool conclusion = true;
             //Primero chequea todas las filas para ver si su valor satisface el de las pistas
 
             for (int filaActual = 0; filaActual < pistasFilas.Count(); filaActual++)
@@ -266,7 +435,7 @@ namespace ResuelveNonograms
                         {
                             suma++;
                         }
-                        else if (solucionActual[filaActual][i] == 0 && i > 1)
+                        else if (solucionActual[filaActual][i] == 0 && i >= 1)
                         {
                             if (solucionActual[filaActual][i - 1] == 1)
                                 miniGrupo++;
@@ -280,13 +449,23 @@ namespace ResuelveNonograms
                     }
                     else
                     {
-                        return false;
+                        conclusion = false;
+                        Console.WriteLine("Check Final Filas: " + conclusion);
+                        return conclusion;
                     }
 
-                    Console.WriteLine("Check Final: " + conclusion);
+                    //Console.WriteLine("Check Final Filas: " + conclusion);
                     nPistaActual++;
                 }
+                //Console.WriteLine("Check Final Filas: " + conclusion);
+                //return conclusion;
             }
+
+            /*
+             
+             */
+
+            Console.WriteLine("Check Final Filas: " + conclusion);
 
             for (int columnaActual = 0; columnaActual < pistasColumnas.Count(); columnaActual++)
             {
@@ -299,7 +478,7 @@ namespace ResuelveNonograms
 
                     for (int i = 0; i < filas; i++)
                     {
-                        if (solucionActual[i][columnaActual] > 0 && nPistaActual == miniGrupo)
+                        if (solucionActual[i][columnaActual] == 1 && nPistaActual == miniGrupo)
                         {
                             suma++;
                         }
@@ -315,16 +494,18 @@ namespace ResuelveNonograms
                     }
                     else
                     {
-                        return false;
+                        conclusion = false;
+                        Console.WriteLine("Check Final Columnas: " + conclusion);
+                        return conclusion;
                     }
-
+                    //Console.WriteLine("Check Final Columnas: " + conclusion);
                     nPistaActual++;
                 }
             }
+            Console.WriteLine("Check Final Columnas: " + conclusion);
             return conclusion;
         }
-
-
+        
 
 
         public void imprimeNonogram()
@@ -340,7 +521,7 @@ namespace ResuelveNonograms
                 texto += "\n";
             }
 
-            Console.WriteLine(texto);
+            Console.Write(texto);
         }
 
     }
